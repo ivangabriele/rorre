@@ -4,6 +4,7 @@
   "description": "ES6 Enumified dictionary-based error emitter.",
   "license": "MIT",
   "main": "rorre.js",
+  "types": "rorre.d.js",
   "scripts": {
     "test": "mocha rorre.spec.js"
   },
