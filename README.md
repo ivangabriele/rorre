@@ -10,6 +10,7 @@
 
 1. [Behaviors](#behaviors)
 1. [Getting Started](#getting-started)
+1. [Usage](#usage)
 1. [Compatibility](#compatibility)
 1. [Best Practices](#best-practices)
 1. [Contribute](#contribute)
@@ -34,6 +35,28 @@ npm i rorre
 
 > **Typescript**<br>
 > The typings declaration is included.
+
+## Usage
+
+Declare your errors in a single file:
+
+```javasript
+import rorre from 'rorre'
+
+rorre.declare({
+  ERR_ONE: 'Error one.',
+  ERR_TWO: 'Error two.',
+  ...
+})
+```
+
+Throw them via their name:
+
+```
+import rorre from 'rorre'
+
+if (somethingWentWrong()) throw rorre.emit(rorre.name.ERR_ONE)
+```
 
 ## Compatibility
 
