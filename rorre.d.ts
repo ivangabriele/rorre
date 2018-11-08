@@ -24,11 +24,7 @@ interface Rorre<T extends Dictionary = {}> {
   dictionary: ReadOnly<T>;
 
   /**
-   * Get an enum of the dictionary errors' name.
-   *
-   * @description
-   * This is a reverse mapping: for each error, both its #name
-   * and generated #index exist as a key, and a value as well.
+   * Instanciate (but do NOT throw) a RorreError and return it.
    */
   error: ReadOnly<{
     readonly [P in keyof T]: () => ReadOnly<RorreError<T, Stringify<P>>>;
@@ -52,11 +48,6 @@ interface Rorre<T extends Dictionary = {}> {
    * This method can and must only be called once.
    */
   declare(dictionary: Dictionary): Rorre<typeof dictionary>;
-
-  /**
-   * Instanciate (but do NOT throw) a RorreError and return it.
-   */
-  emit<T extends Dictionary>(name: keyof T | number): RorreError<T, Stringify<keyof T>>;
 }
 
 declare const rorre: ReadOnly<Rorre>;
