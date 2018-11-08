@@ -67,11 +67,11 @@ class Rorre {
    * and generated #index exist as a key, and a value as well.
    */
   get name() {
-    if (_NAME === undefined) {
+    if (_DICTIONARY === undefined) {
       throw new Error(`Rorre#code: You need to declare your dictionary first, in order to call this getter.`)
     }
 
-    return _DICTIONARY
+    return _NAME
   }
 
   /**
