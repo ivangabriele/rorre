@@ -44,11 +44,7 @@ class Rorre {
   }
 
   /**
-   * Get an enum of the dictionary errors' name.
-   *
-   * @description
-   * This is a reverse mapping: for each error, both its #name
-   * and generated #index exist as a key, and a value as well.
+   * Instanciate (but do NOT throw) a RorreError and return it.
    */
   get error() {
     if (_DICTIONARY === undefined) {
@@ -119,30 +115,6 @@ class Rorre {
     _NAME = Object.freeze(_NAME)
 
     return this
-  }
-
-  /**
-   * Instanciate (but do NOT throw) a RorreError and return it.
-   */
-  emit(errorIndexOrName) {
-    switch (true) {
-      case _DICTIONARY === undefined:
-        throw new Error(`Rorre#emit(): You need to declare your dictionary first, in order to call this method.`)
-
-      case typeof _DICTIONARY[errorIndexOrName] !== 'string':
-        throw new Error(`Rorre#emit(): This dictionary key ("${errorIndexOrName}") does not exist.`)
-    }
-
-    let errorIndex, errorName
-    if (typeof errorIndexOrName === 'number') {
-      errorIndex = errorIndexOrName
-      errorName = _NAME[errorIndexOrName]
-    } else {
-      errorIndex = _NAME[errorIndexOrName]
-      errorName = errorIndexOrName
-    }
-
-    return new RorreError(_DICTIONARY[errorIndex], errorName, errorIndex)
   }
 }
 
