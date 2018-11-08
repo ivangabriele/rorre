@@ -1,5 +1,6 @@
-let _NAME
 let _DICTIONARY
+let _ERROR
+let _NAME
 
 /**
  * RorreError customizes the default Error:
@@ -49,12 +50,28 @@ class Rorre {
    * This is a reverse mapping: for each error, both its #name
    * and generated #index exist as a key, and a value as well.
    */
+  get error() {
+    if (_DICTIONARY === undefined) {
+      throw new Error(`Rorre#code: You need to declare your dictionary first, in order to call this getter.`)
+    }
+
+    return _DICTIONARY
+  }
+
+
+  /**
+   * Get an enum of the dictionary errors' name.
+   *
+   * @description
+   * This is a reverse mapping: for each error, both its #name
+   * and generated #index exist as a key, and a value as well.
+   */
   get name() {
     if (_NAME === undefined) {
       throw new Error(`Rorre#code: You need to declare your dictionary first, in order to call this getter.`)
     }
 
-    return _NAME
+    return _DICTIONARY
   }
 
   /**
@@ -79,21 +96,27 @@ class Rorre {
     }
 
     // Iitialize the "private properties"
-    _NAME = {}
     _DICTIONARY = {}
+    _ERROR = {}
+    _NAME = {}
 
     // Fill the "private properties"
     let index = -1
     for (let name in dictionary) {
       // _NAME is an enum:
-      _NAME[_NAME[name] = ++index] = name
+      _NAME[_NAME[name] = index] = name
+
       // _DICTIONARY is indexed via this enum:
-      _DICTIONARY[name] = _DICTIONARY[index] = dictionary[name]
+      _DICTIONARY[name] = _DICTIONARY[++index] = dictionary[name]
+
+      // _ERROR is a helper to generate new errors
+      _ERROR[name] = () => new RorreError(dictionary[name], name, index)
     }
 
     // Freeze the "private properties"
-    _NAME = Object.freeze(_NAME)
     _DICTIONARY = Object.freeze(_DICTIONARY)
+    _ERROR = Object.freeze(_ERROR)
+    _NAME = Object.freeze(_NAME)
 
     return this
   }
@@ -125,5 +148,5 @@ class Rorre {
 
 module.exports = Object.seal(new Rorre())
 
-// Enable Typescript default export
+// Enable Typescript default importation
 module.exports.default = module.exports
