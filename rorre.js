@@ -78,9 +78,11 @@ class Rorre {
         throw new Error(`Rorre#declare(): Your <dictionary> values (= messages) must be non-empty strings.`)
     }
 
+    // Iitialize the "private properties"
     _NAME = {}
     _DICTIONARY = {}
 
+    // Fill the "private properties"
     let index = -1
     for (let name in dictionary) {
       // _NAME is an enum:
@@ -89,8 +91,11 @@ class Rorre {
       _DICTIONARY[name] = _DICTIONARY[index] = dictionary[name]
     }
 
+    // Freeze the "private properties"
     _NAME = Object.freeze(_NAME)
     _DICTIONARY = Object.freeze(_DICTIONARY)
+
+    return this
   }
 
   /**
