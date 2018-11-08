@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "ES6 Enumified dictionary-based error emitter.",
   "license": "MIT",
-  "main": "index.js",
+  "main": "rorre.js",
   "scripts": {
     "test": "mocha rorre.spec.js"
   },
