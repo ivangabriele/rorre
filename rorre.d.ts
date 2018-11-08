@@ -1,25 +1,14 @@
-type ValueOf<T> = T[keyof T]
-
 export interface Dictionary {
   [name: string]: string
 }
 
-export interface RorreError<T> extends Error {
+export interface RorreError extends Error {
   index: number
-  name: keyof T
-  message: ValueOf<T>
+  name: string
+  message: string
 }
 
-export interface RorreDictionary<T> {
-  [index: number]: RorreError<T>[message]
-  [name: keyof T]: RorreError<T>[message]
-}
-export interface RorreName<T> {
-  [index: number]: RorreError<T>[name]
-  [name: keyof T]: RorreError<T>[name]
-}
-
-declare interface Rorre<T> {
+declare interface Rorre {
   /**
    * Get the complete error dictionary indexed object.
    *
@@ -27,7 +16,7 @@ declare interface Rorre<T> {
    * This is an enumed mapping: for each error, both its #message
    * and generated #index exist as a key, and a value as well.
    */
-  dictionary: RorreDictionary<T>
+  dictionary: Dictionary
 
   /**
    * Get an enum of the dictionary errors' name.
@@ -36,7 +25,7 @@ declare interface Rorre<T> {
    * This is a reverse mapping: for each error, both its #name
    * and generated #index exist as a key, and a value as well.
    */
-  name: RorreName<T>
+  name: string | number
 
   /**
    * Declare the complete errors dictionary.
@@ -49,5 +38,7 @@ declare interface Rorre<T> {
   /**
    * Instanciate (but do NOT throw) a RorreError and return it.
    */
-  emit(code: keyof T | number): RorreError<T>
+  emit(name: number | string): RorreError
 }
+
+export default Rorre
