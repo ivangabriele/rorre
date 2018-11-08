@@ -1,9 +1,9 @@
 type ReadOnly<T> = {
   readonly [P in keyof T]: T[P];
 }
-type Stringify<T> = Extract<T, string>
+type Stringify<T> = Extract<T, string>;
 
-export interface Dictionary {
+interface Dictionary {
   [name: string]: string;
 }
 
@@ -51,7 +51,7 @@ interface Rorre<T extends Dictionary = {}> {
    * @description
    * This method can and must only be called once.
    */
-  declare<T extends Dictionary>(dictionary: T): Rorre<T>;
+  declare(dictionary: Dictionary): Rorre<typeof dictionary>;
 
   /**
    * Instanciate (but do NOT throw) a RorreError and return it.
