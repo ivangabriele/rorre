@@ -1,7 +1,7 @@
 
 const assert = require('assert')
 
-const rorre = require('./rorre')
+const rorre = require('.')
 
 const DICTIONARY = {
   ERROR_ONE: `First error.`,
