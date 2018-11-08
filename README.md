@@ -40,7 +40,7 @@ npm i rorre
 
 Declare your errors in a single file:
 
-```javasript
+```js
 import rorre from 'rorre'
 
 rorre.declare({
@@ -52,7 +52,7 @@ rorre.declare({
 
 Throw them via their name:
 
-```
+```js
 import rorre from 'rorre'
 
 if (somethingWentWrong()) throw rorre.emit(rorre.name.ERR_ONE)
