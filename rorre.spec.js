@@ -48,11 +48,15 @@ describe('Rorre', () => {
   })
 
   describe('#dictionary', () => {
+    it(`should be frozen`, () => assert.strictEqual(Object.isFrozen(errorDictionary.dictionary), true))
+
     it(`should match the declared dictionary`, () =>
       assert.deepStrictEqual(errorDictionary.dictionary, DICTIONARY))
   })
 
   describe('#error', () => {
+    it(`should be frozen`, () => assert.strictEqual(Object.isFrozen(errorDictionary.error), true))
+
     describe('#ERR_ONE()', () => {
       it(`should return an instance of RorreError`, () =>
         assert.strictEqual(errorDictionary.error.ERR_ONE().constructor.name, 'RorreError'))
@@ -75,6 +79,20 @@ describe('Rorre', () => {
         assert.strictEqual(errorDictionary.error.ERR_TWO().name, 'ERR_TWO'))
       it(`should emit the expected RorreError#message`, () =>
         assert.strictEqual(errorDictionary.error.ERR_TWO().message, DICTIONARY.ERR_TWO))
+    })
+  })
+
+  describe('#name', () => {
+    it(`should be frozen`, () => assert.strictEqual(Object.isFrozen(errorDictionary.name), true))
+
+    describe('#ERR_ONE()', () => {
+      it(`should be frozen`, () => assert.strictEqual(Object.isFrozen(errorDictionary.name.ERR_ONE), true))
+      it(`should be a named enum`, () => assert.strictEqual(errorDictionary.name.ERR_ONE, 'ERR_ONE'))
+    })
+
+    describe('#ERR_TWO()', () => {
+      it(`should be frozen`, () => assert.strictEqual(Object.isFrozen(errorDictionary.name.ERR_TWO), true))
+      it(`should be a named enum`, () => assert.strictEqual(errorDictionary.name.ERR_TWO, 'ERR_TWO'))
     })
   })
 })
