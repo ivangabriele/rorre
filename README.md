@@ -126,9 +126,7 @@ Getter for the Error Dictionary your declared with `Rorre#declare()` returning .
 
 #### `Rorre#name: { [keyof Dictionary]: keyof Dictionary }`
 
-**Note: You likely won't need to use this getter !**
-
-Getter for the Error Dictionary names _(= its property names)_ in a simple enum form. It allows you to call the errors messages by their name in case you wish to generate your custom errors instead of calling `myRorreInstance.error.MY_ERROR()`. All of its properties are `read-only`.
+Getter for the Error Dictionary names _(= its property names)_ in a simple enum form. It allows you to check the errors by their name in case you wish to compare them. All of its properties are `read-only`.
 
 Example:
 
@@ -140,19 +138,22 @@ const errors = rorre.declare({
   ERR_TWO: `Second error message.`,
 })
 
-class CustomError() {
-  constructor(message, name, inMethod) {
-    super(`${inMethod}: ${message}`)
-
-    this.name = name
+myFirstFunction() {
+  if (somethingWentWrong()) {
+    throw errors.error.ERR_ONE
   }
 }
 
-class MyClass {
-  myMethod() {
-    if (somethingWentWrong()) {
-      throw new CustomError(errors.dictionary.ERR_ONE, errors.name.ERR_ONE, 'MyClass#myMethod()')
+function mySecondFunction() {
+  try {
+    myFirstFunction()
+  }
+  catch(err) {
+    if (err.name !== undefined && err.name === errors.dictionary.ERR_ONE) {
+      doSomethingElse()
     }
+
+    throw errors.error.ERR_TWO
   }
 }
 ```
