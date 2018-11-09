@@ -13,17 +13,18 @@
 1. [Usage](#usage)
 1. [Compatibility](#compatibility)
 1. [Best Practices](#best-practices)
+1. [API](#usage)
 1. [Contribute](#contribute)
 
 ## Behaviors
 
 - As a developer:
   - I want the error library to be [frozen](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze).
-  - I want an Error Dictionary _(i.e.: `{ ERR_ONE: 'First error message', ... }`)_.
+  - I want an Error Dictionary _(i.e.: `{ ERR_ONE: ``First error message``, ... }`)_.
   - I want the error dictionary to be declared only once.
   - I want the error dictionary to be frozen.
-  - I want my errors to have a unique **name** _(i.e.: `ERR_`)_.
-  - I want my errors to have a mandatory **message**.
+  - I want my errors to have a unique **name** _(i.e.: `"ERR_ONE"`)_.
+  - I want my errors to have a mandatory **message** _(i.e.: `"First error message"`)_.
   - I want the error names to be enumable.<br>
     _In order to generate an error via its name as a property._
   - I want to get trackable error codes (_= name_) from my end-users.
@@ -42,26 +43,25 @@ npm i rorre
 Declare your errors in a single file (called `errors.js` here):
 
 ```js
-import rorre from 'rorre'
+const rorre require('rorre')
 
 export default rorre.declare({
   ERR_ONE: `First error message.`,
   ERR_TWO: `Second error message.`,
-  ...
 })
 ```
 
 Throw them via their name:
 
 ```js
-import errors from './errors'
+const errors = require('./errors')
 
-if (somethingWentWrong()) throw errors.error.ERR_ONE
+if (somethingWentWrong()) throw errors.error.ERR_ONE()
 ```
 
 And that's all !
 
-This will return an instance of `RorreError`, itself inherited from `Error`. Each error will get a `name` and a `message` matching the ones in the dictionary. In the case above, a `throw errors.error.ERR_ONE` would output:
+This will return an instance of `RorreError`, itself inherited from `Error`. Each error will get a `name` and a `message` matching the ones in the dictionary. In the case above, a `throw errors.error.ERR_ONE()` would output:
 
 ```bash
 ERR_ONE: First error message.
@@ -84,19 +84,78 @@ You obviously need to **ignore the first Error Stack line** since `new RorreErro
 
 ## Compatibility
 
-This library is written in ES6 and is fully transpilable to ES5 if you use a transpiler in your project.
+This CommonJS library is written in ES6 and is fully transpilable to ES5 if you use a transpiler in your project.
 
 ### Without a transpiler
 
-_In progress..._
+_Tests in progress..._
 
 ### With an es5 transpiler
 
-_In progress..._
+_Tests in progress..._
 
-## Good Practices
+## Best Practices
 
-_In progress..._
+- Error names SHOULD be in **SCREAMING_SNAKE_CASE**.<br>
+  _**Why ?** Because an error name is supposed to be easy to find, irrespective of the size of the codebase. In Javascript, most variable names are in camel-case. Therefore it's easier to run a case-sensitive search to look for the error name. Moreover it also catches the eye when lost in the middle of a log history._
+- Error messages SHOULD start with an **Uppercase** letter AND SHOULD end with a **dot**.<br>
+  _**Why ?** Because an error message is supposed to be a humanely understandable message. We are used to read sentences starting with an uppercase letter and ending with a punctuation mark. Therefore it improves the readability._
+
+## API
+
+### Rorre Class
+
+#### `Rorre#declare(dictionary: Dictionary): Rorre`
+
+Return an frozen instance of Rorre.
+
+The `<dictionary>` parameter must be a pure `object` made of Error names as its properties, and matching Error messages as its values. Both its properties and values are expected to be a `string`.
+
+#### `Rorre#dictionary: Dictionary`
+
+Getter of the Error Dictionary your declared with .
+
+#### `Rorre#error: { [keyof Dictionary]: () => RorreError }`
+
+Getter of the Error Dictionary your declared with .
+
+#### `Rorre#name: { [keyof Dictionary]: keyof Dictionary }`
+
+**Note: You likely won't need to use this getter !**
+
+Getter of the Error Dictionary names _(= its property names)_ in a simple enum form so that you can call the errors by their in case you wish to generate your custom errors instead of calling `myRorreInstance.error.MY_ERROR()`.
+
+Example:
+
+```js
+const rorre require('rorre')
+
+const errors = rorre.declare({
+  ERR_ONE: `First error message.`,
+  ERR_TWO: `Second error message.`,
+})
+
+class CustomError() {
+  constructor(message, name, whithin) {
+    super(message)
+
+    this.name = name
+    this.whithin = whithin
+  }
+}
+
+function doSomething() {
+  if (somethingWentWrong()) {
+    throw new Error(errors.name.ERR_ONE, 'doSomething()')
+  }
+}
+```
+
+### RorreError Class
+
+**Note: The RorreError class is not exported and is only described here for a documentation matter.**
+
+This class is an extension of `Error` with a mandatory `name` property. Both its `message` and `name` properties are expected to be a `string`.
 
 ## Contribute
 
