@@ -7,11 +7,6 @@ const DICTIONARY = {
   ERR_ONE: `First error message.`,
   ERR_TWO: `Second error message.`,
 }
-const DICTIONARY_EXPECTED = {
-  0: `First error message.`,
-  1: `Second error message.`,
-  ...DICTIONARY,
-}
 
 function assertError(fn, message) {
   let err
@@ -54,7 +49,7 @@ describe('Rorre', () => {
 
   describe('#dictionary', () => {
     it(`should match the declared dictionary`, () =>
-      assert.deepStrictEqual(errorDictionary.dictionary, DICTIONARY_EXPECTED))
+      assert.deepStrictEqual(errorDictionary.dictionary, DICTIONARY))
   })
 
   describe('#error', () => {
