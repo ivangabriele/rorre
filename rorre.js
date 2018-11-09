@@ -47,7 +47,7 @@ class Rorre {
       throw new Error(`Rorre#code: You need to declare your dictionary first, in order to call this getter.`)
     }
 
-    return _DICTIONARY
+    return _ERROR
   }
 
 
