@@ -95,14 +95,9 @@ class Rorre {
     // Fill the "private properties"
     let index = -1
     for (let name in dictionary) {
-      // _NAME is an enum:
-      _NAME[_NAME[name] = index] = name
-
-      // _DICTIONARY is indexed via this enum:
-      _DICTIONARY[name] = _DICTIONARY[++index] = dictionary[name]
-
-      // _ERROR is a helper to generate new errors
-      _ERROR[name] = () => new RorreError(dictionary[name], name, index)
+      _NAME[name] = name
+      _DICTIONARY[name] = dictionary[name]
+      _ERROR[name] = () => new RorreError(dictionary[name], name)
     }
 
     // Freeze the "private properties"
