@@ -6,6 +6,8 @@
 [![David](https://img.shields.io/david/ivangabriele/rorre.svg?style=flat-square)](https://david-dm.org/ivangabriele/rorre?type=dev)
 [![David](https://img.shields.io/david/dev/ivangabriele/rorre.svg?style=flat-square)](https://david-dm.org/ivangabriele/rorre?type=dev)
 
+**Enumified, dictionary-based and dependenciless error library.**
+
 ## TOC
 
 1. [Behaviors](#behaviors)
@@ -20,13 +22,12 @@
 
 - As a developer:
   - I want the error library to be [frozen](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze).
-  - I want an Error Dictionary _(i.e.: `{ ERR_ONE: ``First error message``, ... }`)_.
+  - I want an Error Dictionary.
   - I want the error dictionary to be declared only once.
   - I want the error dictionary to be frozen.
-  - I want my errors to have a unique **name** _(i.e.: `"ERR_ONE"`)_.
-  - I want my errors to have a mandatory **message** _(i.e.: `"First error message"`)_.
-  - I want the error names to be enumable.<br>
-    _In order to generate an error via its name as a property._
+  - I want my errors to have a unique **name**.
+  - I want my errors to have a mandatory **message**.
+  - I want the error names to be enumable.
   - I want to get trackable error codes (_= name_) from my end-users.
 
 ## Getting Started
@@ -36,7 +37,10 @@ npm i rorre
 ```
 
 > **Typescript**<br>
-> The typings declaration is included.
+> The types declarations are included.
+
+> **Flow**<br>
+> In progress...
 
 ## Usage
 
@@ -79,8 +83,9 @@ ERR_ONE: First error message.
 
 You obviously need to **ignore the first Error Stack line** since `new RorreError()` is called within Rorre library.
 
-> **Typescript**<br>
-> In Typescript you will benefit from the autocompletion thanks to the types inference patterns included in the typings declaration. It's advisable not to try typing your Error Dictionary yourself in order to avoid interfering with the inference process.
+### Typescript
+
+In Typescript, you will benefit from the autocompletion thanks to the types inference patterns included in the typings declaration. It's advisable not to try custom-typing your Error Dictionary to avoid interfering with the inference process.
 
 ## Compatibility
 
@@ -113,22 +118,22 @@ The `<dictionary>` parameter must be a pure `object` made of Error names as its 
 
 #### `Rorre#dictionary: Dictionary`
 
-Getter of the Error Dictionary your declared with .
+Getter for the Error Dictionary your declared with `Rorre#declare()`. All of its properties are `read-only`.
 
 #### `Rorre#error: { [keyof Dictionary]: () => RorreError }`
 
-Getter of the Error Dictionary your declared with .
+Getter for the Error Dictionary your declared with `Rorre#declare()` returning .
 
 #### `Rorre#name: { [keyof Dictionary]: keyof Dictionary }`
 
 **Note: You likely won't need to use this getter !**
 
-Getter of the Error Dictionary names _(= its property names)_ in a simple enum form so that you can call the errors by their in case you wish to generate your custom errors instead of calling `myRorreInstance.error.MY_ERROR()`.
+Getter for the Error Dictionary names _(= its property names)_ in a simple enum form. It allows you to call the errors messages by their name in case you wish to generate your custom errors instead of calling `myRorreInstance.error.MY_ERROR()`. All of its properties are `read-only`.
 
 Example:
 
 ```js
-const rorre require('rorre')
+const rorre = require('rorre')
 
 const errors = rorre.declare({
   ERR_ONE: `First error message.`,
@@ -136,24 +141,25 @@ const errors = rorre.declare({
 })
 
 class CustomError() {
-  constructor(message, name, whithin) {
-    super(message)
+  constructor(message, name, inMethod) {
+    super(`${inMethod}: ${message}`)
 
     this.name = name
-    this.whithin = whithin
   }
 }
 
-function doSomething() {
-  if (somethingWentWrong()) {
-    throw new Error(errors.name.ERR_ONE, 'doSomething()')
+class MyClass {
+  myMethod() {
+    if (somethingWentWrong()) {
+      throw new CustomError(errors.dictionary.ERR_ONE, errors.name.ERR_ONE, 'MyClass#myMethod()')
+    }
   }
 }
 ```
 
 ### RorreError Class
 
-**Note: The RorreError class is not exported and is only described here for a documentation matter.**
+**Note: The RorreError class is not exported and only described here for documentation sake.**
 
 This class is an extension of `Error` with a mandatory `name` property. Both its `message` and `name` properties are expected to be a `string`.
 
