@@ -7,7 +7,7 @@
   "types": "rorre.d.ts",
   "scripts": {
     "postpublish": "git push origin head && git push --tags",
-    "test": "mocha rorre.spec.js"
+    "test": "mocha"
   },
   "devDependencies": {
     "mocha": "^5.2.0",
