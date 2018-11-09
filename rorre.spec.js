@@ -4,12 +4,12 @@ const assert = require('assert')
 const rorre = require('.')
 
 const DICTIONARY = {
-  ERROR_ONE: `First error.`,
-  ERROR_TWO: `Second error.`,
+  ERR_ONE: `First error message.`,
+  ERR_TWO: `Second error message.`,
 }
 const DICTIONARY_EXPECTED = {
-  0: `First error.`,
-  1: `Second error.`,
+  0: `First error message.`,
+  1: `Second error message.`,
   ...DICTIONARY,
 }
 
@@ -22,6 +22,8 @@ function assertError(fn, message) {
 }
 
 describe('Rorre', () => {
+  let errorDictionary
+
   it('should be sealed', () => assert.strictEqual(Object.isSealed(rorre), true))
   it('should be final', () => assert.strictEqual(Object.isExtensible(rorre), false))
 
@@ -41,37 +43,43 @@ describe('Rorre', () => {
       ))
 
     it(`shouldn't throw any error with a valid dictionary`, () =>
-      assert.doesNotThrow(() => rorre.declare(DICTIONARY)))
+      assert.doesNotThrow(() => errorDictionary = rorre.declare(DICTIONARY)))
 
     it(`should throw the expected error when re-called`, () =>
       assertError(
-        () => rorre.declare({ ERROR_NEVER: `Impossible error.` }),
+        () => errorDictionary.declare({ ERROR_NEVER: `Impossible error.` }),
         `Rorre#declare(): You already declared an error dictionary.`
       ))
   })
 
   describe('#dictionary', () => {
-    it(`should match the declared dictionary`, () => assert.deepStrictEqual(rorre.dictionary, DICTIONARY_EXPECTED))
+    it(`should match the declared dictionary`, () =>
+      assert.deepStrictEqual(errorDictionary.dictionary, DICTIONARY_EXPECTED))
   })
 
-  describe('#emit()', () => {
-    const DICTIONARY_KEY = 'ERROR_ONE'
-    let dictionaryError
+  describe('#error', () => {
+    describe('#ERR_ONE()', () => {
+      it(`should return an instance of RorreError`, () =>
+        assert.strictEqual(errorDictionary.error.ERR_ONE().constructor.name, 'RorreError'))
+      it(`└ which should be extended from Error`, () =>
+        assert.strictEqual(errorDictionary.error.ERR_ONE() instanceof Error, true))
 
-    it(`shouldn't throw any error with a valid enum`, () =>
-      assert.doesNotThrow(() => rorre.emit(rorre.name[DICTIONARY_KEY])))
-    it(`shouldn't throw any error with a valid index`, () => assert.doesNotThrow(() => rorre.emit(0)))
-    it(`shouldn't throw any error with a valid name`, () => assert.doesNotThrow(() => rorre.emit('ERROR_ONE')))
-
-    it(`should return an instance of RorreError`, () => {
-      dictionaryError = rorre.emit(rorre.name.ERROR_ONE)
-      assert.strictEqual(dictionaryError.constructor.name, 'RorreError')
+      it(`should emit the expected RorreError#name`, () =>
+        assert.strictEqual(errorDictionary.error.ERR_ONE().name, 'ERR_ONE'))
+      it(`should emit the expected RorreError#message`, () =>
+        assert.strictEqual(errorDictionary.error.ERR_ONE().message, DICTIONARY.ERR_ONE))
     })
-    it(`└ which should be extended from Error`, () => assert.strictEqual(dictionaryError instanceof Error, true))
 
-    it(`should emit the expected RorreError#index`, () => assert.strictEqual(dictionaryError.index, 0))
-    it(`should emit the expected RorreError#name`, () => assert.strictEqual(dictionaryError.name, DICTIONARY_KEY))
-    it(`should emit the expected RorreError#message`, () =>
-      assert.strictEqual(dictionaryError.message, DICTIONARY[DICTIONARY_KEY]))
+    describe('#ERR_TWO()', () => {
+      it(`should return an instance of RorreError`, () =>
+        assert.strictEqual(errorDictionary.error.ERR_TWO().constructor.name, 'RorreError'))
+      it(`└ which should be extended from Error`, () =>
+        assert.strictEqual(errorDictionary.error.ERR_TWO() instanceof Error, true))
+
+      it(`should emit the expected RorreError#name`, () =>
+        assert.strictEqual(errorDictionary.error.ERR_TWO().name, 'ERR_TWO'))
+      it(`should emit the expected RorreError#message`, () =>
+        assert.strictEqual(errorDictionary.error.ERR_TWO().message, DICTIONARY.ERR_TWO))
+    })
   })
 })
