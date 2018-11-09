@@ -93,7 +93,6 @@ class Rorre {
     _NAME = {}
 
     // Fill the "private properties"
-    let index = -1
     for (let name in dictionary) {
       _NAME[name] = name
       _DICTIONARY[name] = dictionary[name]
