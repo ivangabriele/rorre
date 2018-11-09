@@ -1,7 +1,7 @@
 {
   "name": "rorre",
   "version": "1.0.0-beta.0",
-  "description": "ES6 Enumified dictionary-based error emitter.",
+  "description": "Enumified, dictionary-based and dependenciless error library.",
   "license": "MIT",
   "main": "rorre.js",
   "types": "rorre.d.ts",
