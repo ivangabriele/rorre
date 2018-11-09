@@ -18,13 +18,14 @@
 ## Behaviors
 
 - As a developer:
-  - I want to ensure the error library is [frozen](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze).
-  - I want an error dictionary _(i.e.: `{ ERR_WRONG: '', ... }`)_.
-  - I want to ensure the error dictionary is only declared once.
-  - I want to ensure the error dictionary is frozen.
-  - I want to ensure my errors to have a unique **name** _(i.e.: `ERR_`)_.
-  - I want to ensure my errors to have a mandatory **message**.
-  - I want the error names to be enumable _(in order to call an error via its name)_.
+  - I want the error library to be [frozen](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze).
+  - I want an Error Dictionary _(i.e.: `{ ERR_ONE: 'First error message', ... }`)_.
+  - I want the error dictionary to be declared only once.
+  - I want the error dictionary to be frozen.
+  - I want my errors to have a unique **name** _(i.e.: `ERR_`)_.
+  - I want my errors to have a mandatory **message**.
+  - I want the error names to be enumable.<br>
+    _In order to generate an error via its name as a property._
   - I want to get trackable error codes (_= name_) from my end-users.
 
 ## Getting Started
