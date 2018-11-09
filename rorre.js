@@ -8,22 +8,18 @@ let _NAME
  * - add an #index property in order to generate error indexes within Rorre dictionary.
  */
 class RorreError extends Error {
-  constructor(message, name, index) {
+  constructor(message, name) {
     switch (true) {
       case typeof message !== 'string' || message.length === 0:
         throw new Error(`RorreError(): The <message> must be a non-empty string.`)
 
       case typeof name !== 'string' || name.length === 0:
         throw new Error(`RorreError(): The <name> must be a non-empty string.`)
-
-      case typeof index !== 'number' || index < 0 || Math.floor(index) !== index:
-        throw new Error(`RorreError(): The <index> must be a non-negative integer.`)
     }
 
     super(message)
 
     this.name = name
-    this.index = index
   }
 }
 
