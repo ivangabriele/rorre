@@ -22,7 +22,7 @@
 
 - As a developer:
   - I want the error library to be [frozen](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze).
-  - I want an Error Dictionary.
+  - I want an error dictionary.
   - I want the error dictionary to be declared only once.
   - I want the error dictionary to be frozen.
   - I want my errors to have a unique **name**.
