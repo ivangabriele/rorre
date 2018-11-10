@@ -47,9 +47,9 @@ npm i rorre
 Declare your errors in a single file (called `errors.js` here):
 
 ```js
-const rorre require('rorre')
+const rorre = require('rorre')
 
-export default rorre.declare({
+module.exports rorre.declare({
   ERR_ONE: `First error message.`,
   ERR_TWO: `Second error message.`,
 })
