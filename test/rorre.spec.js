@@ -59,26 +59,26 @@ describe('Rorre', () => {
 
     describe('#ERR_ONE()', () => {
       it(`should return an instance of RorreError`, () =>
-        assert.strictEqual(errorDictionary.error.ERR_ONE().constructor.name, 'RorreError'))
+        assert.strictEqual(errorDictionary.error.ERR_ONE.constructor.name, 'RorreError'))
       it(`└ which should be extended from Error`, () =>
-        assert.strictEqual(errorDictionary.error.ERR_ONE() instanceof Error, true))
+        assert.strictEqual(errorDictionary.error.ERR_ONE instanceof Error, true))
 
       it(`should emit the expected RorreError#name`, () =>
-        assert.strictEqual(errorDictionary.error.ERR_ONE().name, 'ERR_ONE'))
+        assert.strictEqual(errorDictionary.error.ERR_ONE.name, 'ERR_ONE'))
       it(`should emit the expected RorreError#message`, () =>
-        assert.strictEqual(errorDictionary.error.ERR_ONE().message, DICTIONARY.ERR_ONE))
+        assert.strictEqual(errorDictionary.error.ERR_ONE.message, DICTIONARY.ERR_ONE))
     })
 
     describe('#ERR_TWO()', () => {
       it(`should return an instance of RorreError`, () =>
-        assert.strictEqual(errorDictionary.error.ERR_TWO().constructor.name, 'RorreError'))
+        assert.strictEqual(errorDictionary.error.ERR_TWO.constructor.name, 'RorreError'))
       it(`└ which should be extended from Error`, () =>
-        assert.strictEqual(errorDictionary.error.ERR_TWO() instanceof Error, true))
+        assert.strictEqual(errorDictionary.error.ERR_TWO instanceof Error, true))
 
       it(`should emit the expected RorreError#name`, () =>
-        assert.strictEqual(errorDictionary.error.ERR_TWO().name, 'ERR_TWO'))
+        assert.strictEqual(errorDictionary.error.ERR_TWO.name, 'ERR_TWO'))
       it(`should emit the expected RorreError#message`, () =>
-        assert.strictEqual(errorDictionary.error.ERR_TWO().message, DICTIONARY.ERR_TWO))
+        assert.strictEqual(errorDictionary.error.ERR_TWO.message, DICTIONARY.ERR_TWO))
     })
   })
 
