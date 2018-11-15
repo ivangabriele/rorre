@@ -60,12 +60,12 @@ Throw them via their name:
 ```js
 const errors = require('./errors')
 
-if (somethingWentWrong()) throw errors.error.ERR_ONE()
+if (somethingWentWrong()) throw errors.error.ERR_ONE
 ```
 
 And that's all !
 
-This will return an instance of `RorreError`, itself inherited from `Error`. Each error will get a `name` and a `message` matching the ones in the dictionary. In the case above, a `throw errors.error.ERR_ONE()` would output:
+This will return an instance of `RorreError`, itself inherited from `Error`. Each error will get a `name` and a `message` matching the ones in the dictionary. In the case above, a `throw errors.error.ERR_ONE` would output:
 
 ```bash
 ERR_ONE: First error message.
