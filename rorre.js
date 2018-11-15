@@ -96,7 +96,7 @@ class Rorre {
     for (let name in dictionary) {
       _NAME[name] = name
       _DICTIONARY[name] = dictionary[name]
-      _ERROR[name] = () => new RorreError(dictionary[name], name)
+      Object.defineProperty(_ERROR, name, { get: () => new RorreError(dictionary[name], name) })
     }
 
     // Freeze the "private properties"
