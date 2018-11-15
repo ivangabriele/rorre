@@ -13,6 +13,7 @@
 1. [Behaviors](#behaviors)
 1. [Getting Started](#getting-started)
 1. [Usage](#usage)
+1. [Localization](#localization)
 1. [Compatibility](#compatibility)
 1. [Best Practices](#best-practices)
 1. [API](#usage)
@@ -86,6 +87,23 @@ You obviously need to **ignore the first Error Stack line** since `new RorreErro
 ### Typescript
 
 In Typescript, you will benefit from the autocompletion thanks to the types inference patterns included in the typings declaration. It's advisable not to try custom-typing your Error Dictionary to avoid interfering with the inference process.
+
+### Flow
+
+_In progress..._
+
+## Localization
+
+If you wish to use this library to also handle end-users errors and integrate your translations in the process, you can take advantage of the `rorre.name` enum. Your code could look like this:
+
+```js
+const errors = require('./errors')
+const locales = requires('../i18n/en.json')
+
+if (somethingWentWrong()) showErrorWithMessage(locales[errors.name.ERR_ONE])
+```
+
+Since there are many existing formats and conventions to handle localization, rorre does not implement anything specific regarding that. It's up to you to re-declare your error dictionary names within your localization files.
 
 ## Compatibility
 
