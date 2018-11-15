@@ -27,7 +27,7 @@ interface Rorre<T extends Dictionary = {}> {
    * Instanciate (but do NOT throw) a RorreError and return it.
    */
   error: ReadOnly<{
-    readonly [P in keyof T]: () => ReadOnly<RorreError<T, Stringify<P>>>;
+    readonly [P in keyof T]: RorreError<T, Stringify<P>>;
   }>;
 
   /**
