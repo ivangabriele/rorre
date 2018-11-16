@@ -1,9 +1,9 @@
-type ReadOnly<T> = {
+export type ReadOnly<T> = {
   readonly [P in keyof T]: T[P];
 }
-type Stringify<T> = Extract<T, string>;
+export type Stringify<T> = Extract<T, string>;
 
-interface Dictionary {
+export interface Dictionary {
   [name: string]: string;
 }
 
@@ -13,7 +13,7 @@ export interface RorreError<T extends Dictionary, P extends string> extends Erro
   message: T[P];
 }
 
-interface Rorre<T extends Dictionary = {}> {
+export interface Rorre<T extends Dictionary = {}> {
   /**
    * Get the complete error dictionary indexed object.
    *
