@@ -108,7 +108,8 @@ class Rorre {
   }
 }
 
-module.exports = Object.seal(new Rorre())
-
+const customExports = new Rorre()
 // Enable Typescript default importation
-module.exports.default = module.exports
+customExports.default = customExports
+
+module.exports = Object.seal(customExports)
