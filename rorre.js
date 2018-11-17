@@ -65,14 +65,16 @@ class Rorre {
 
     return _NAME
   }
+}
 
+const customExports = {
   /**
    * Declare the complete errors dictionary.
    *
    * @description
    * This method can and must only be called once.
    */
-  declare(dictionary) {
+  declare: (dictionary) => {
     switch (true) {
       case _DICTIONARY !== undefined:
         throw new Error(`Rorre#declare(): You already declared an error dictionary.`)
@@ -104,11 +106,10 @@ class Rorre {
     _ERROR = Object.freeze(_ERROR)
     _NAME = Object.freeze(_NAME)
 
-    return this
+    return Object.seal(new Rorre())
   }
 }
 
-const customExports = new Rorre()
 // Enable Typescript default importation
 customExports.default = customExports
 
