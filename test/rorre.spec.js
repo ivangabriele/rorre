@@ -22,14 +22,6 @@ describe('Rorre', () => {
   it('should be sealed', () => assert.strictEqual(Object.isSealed(rorre), true))
   it('should be final', () => assert.strictEqual(Object.isExtensible(rorre), false))
 
-  describe('#dictionary', () => {
-    it(`should throw the expected error when the dictionary has not been declared`, () =>
-      assertError(
-        () => rorre.dictionary,
-        `Rorre#dictionary: You need to declare your dictionary first, in order to call this getter.`
-      ))
-  })
-
   describe('#declare()', () => {
     it(`should throw the expected error when the dictionary is an empty object`, () =>
       assertError(
@@ -42,7 +34,7 @@ describe('Rorre', () => {
 
     it(`should throw the expected error when re-called`, () =>
       assertError(
-        () => errorDictionary.declare({ ERROR_NEVER: `Impossible error.` }),
+        () => rorre.declare({ ERROR_NEVER: `Impossible error.` }),
         `Rorre#declare(): You already declared an error dictionary.`
       ))
   })
