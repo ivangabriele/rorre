@@ -1,15 +1,15 @@
 /* @flow */
 
-declare export type Dictionary = {
+declare type Dictionary = {
   [name: string]: string;
 }
 
-declare export class RorreError extends Error {
+declare class RorreError extends Error {
   name: string;
   message: string;
 }
 
-declare export class Rorre<D: Dictionary> {
+declare class Rorre<D: Dictionary> {
   /**
   * Get the complete error dictionary indexed object.
   *
