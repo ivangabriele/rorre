@@ -37,11 +37,9 @@
 npm i rorre
 ```
 
-> **Typescript**<br>
-> The types declarations are included.
+### Typescript & Flow
 
-> **Flow**<br>
-> In progress...
+The Typescript and Flow definitions are included in this library.
 
 ## Usage
 
@@ -84,13 +82,9 @@ ERR_ONE: First error message.
 
 You obviously need to **ignore the first Error Stack line** since `new RorreError()` is called within Rorre library.
 
-### Typescript
+### Typescript & Flow
 
-In Typescript, you will benefit from the autocompletion thanks to the types inference patterns included in the typings declaration. It's advisable not to try custom-typing your Error Dictionary to avoid interfering with the inference process.
-
-### Flow
-
-_In progress..._
+In Typescript and Flow, you will benefit from the autocompletion thanks to the types inference patterns included in the typings declaration. It's advisable not to try custom-typing your Error Dictionary to avoid interfering with the inference process.
 
 ## Localization
 
