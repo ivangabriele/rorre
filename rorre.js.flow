@@ -1,40 +1,42 @@
-declare type Dictionary = {
+/* @flow */
+
+declare export type Dictionary = {
   [name: string]: string;
 }
 
-declare class RorreError extends Error {
+declare export class RorreError extends Error {
   name: string;
   message: string;
 }
 
-declare class Rorre<D: Dictionary> {
-    /**
-    * Get the complete error dictionary indexed object.
-    *
-    * @description
-    * This is an enumed mapping: for each error, both its #message
-    * and generated #index exist as a key, and a value as well.
-    */
-    +dictionary: $ReadOnly<D>;
+declare export class Rorre<D: Dictionary> {
+  /**
+  * Get the complete error dictionary indexed object.
+  *
+  * @description
+  * This is an enumed mapping: for each error, both its #message
+  * and generated #index exist as a key, and a value as well.
+  */
+  +dictionary: $ReadOnly<D>;
 
-/**
-* Instanciate (but do NOT throw) a RorreError and return it.
-*/
-+error: {
-  +[$Keys<D>]: RorreError;
-};
+  /**
+  * Instanciate (but do NOT throw) a RorreError and return it.
+  */
+  +error: {
+    +[$Keys<D>]: RorreError;
+  };
 
-/**
-* Get an enum of the dictionary errors' name.
-*
-* @description
-* This is a reverse mapping: for each error, both its #name
-* and generated #index exist as a key, and a value as well.
-*/
-+name: {
-  +[$Keys<D>]: $Keys<D>;
-};
-  }
+  /**
+  * Get an enum of the dictionary errors' name.
+  *
+  * @description
+  * This is a reverse mapping: for each error, both its #name
+  * and generated #index exist as a key, and a value as well.
+  */
+  +name: {
+    +[$Keys<D>]: $Keys<D>;
+  };
+}
 
 declare export default {
   /**
