@@ -146,7 +146,7 @@ Example:
 const rorre = require('rorre')
 
 const errors = rorre.declare({
-  ERR_FOO_ASTRING_VALIDATION_TYPE: `The <aString> param in foo() must be a string.`,
+  ERR_FOO_VALIDATION_ASTRING_TYPE: `The <aString> param in foo() must be a string.`,
 })
 
 foo(aString) {
@@ -160,7 +160,7 @@ describe('foo()', () => {
     let testErr
     try { foo(123) }
     catch(err) { testErr = err }
-    assert.strictEqual(err.name, errors.name.ERR_FOO_ASTRING_VALIDATION_TYPE))
+    assert.strictEqual(err.name, errors.name.ERR_FOO_VALIDATION_ASTRING_TYPE))
   })
 })
 ```
