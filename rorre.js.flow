@@ -1,0 +1,47 @@
+declare type Dictionary = {
+  [name: string]: string;
+}
+
+declare class RorreError extends Error {
+  name: string;
+  message: string;
+}
+
+declare class Rorre<D: Dictionary> {
+    /**
+    * Get the complete error dictionary indexed object.
+    *
+    * @description
+    * This is an enumed mapping: for each error, both its #message
+    * and generated #index exist as a key, and a value as well.
+    */
+    +dictionary: $ReadOnly<D>;
+
+/**
+* Instanciate (but do NOT throw) a RorreError and return it.
+*/
++error: {
+  +[$Keys<D>]: RorreError;
+};
+
+/**
+* Get an enum of the dictionary errors' name.
+*
+* @description
+* This is a reverse mapping: for each error, both its #name
+* and generated #index exist as a key, and a value as well.
+*/
++name: {
+  +[$Keys<D>]: $Keys<D>;
+};
+  }
+
+declare export default {
+  /**
+  * Declare the complete errors dictionary.
+  *
+  * @description
+  * This method can and must only be called once.
+  */
+  declare<D: Dictionary>(dictionary: D): Rorre<D>;
+};
