@@ -151,7 +151,7 @@ const errors = rorre.declare({
 
 foo(aString) {
   if (typeof aString !== 'string') {
-    throw errors.error.ERR_ONE
+    throw errors.error.ERR_FOO_VALIDATION_ASTRING_TYPE
   }
 }
 
