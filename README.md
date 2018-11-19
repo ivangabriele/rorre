@@ -138,7 +138,7 @@ Getter for the Error Dictionary your declared with `Rorre#declare()` returning .
 
 #### `Rorre#name: { [keyof Dictionary]: keyof Dictionary }`
 
-Getter for the Error Dictionary names _(= its property names)_ in a simple enum form. It allows you to check the errors by their name in case you wish to compare them. All of its properties are `read-only`.
+Getter for the Error Dictionary names _(= its property names)_ in a simple enum form. It allows you to check the errors by their name in case you wish to compare them. All of its properties are `read-only`. This can be useful for testing purposes.
 
 Example:
 
@@ -146,28 +146,23 @@ Example:
 const rorre = require('rorre')
 
 const errors = rorre.declare({
-  ERR_ONE: `First error message.`,
-  ERR_TWO: `Second error message.`,
+  ERR_FOO_ASTRING_VALIDATION_TYPE: `The <aString> param in foo() must be a string.`,
 })
 
-myFirstFunction() {
-  if (somethingWentWrong()) {
+foo(aString) {
+  if (typeof aString !== 'string') {
     throw errors.error.ERR_ONE
   }
 }
 
-function mySecondFunction() {
-  try {
-    myFirstFunction()
-  }
-  catch(err) {
-    if (err.name !== undefined && err.name === errors.dictionary.ERR_ONE) {
-      doSomethingElse()
-    }
-
-    throw errors.error.ERR_TWO
-  }
-}
+describe('foo()', () => {
+  it('should throw the expected error when <aString> is not a string', () => {
+    let testErr
+    try { foo(123) }
+    catch(err) { testErr = err }
+    assert.strictEqual(err.name, errors.name.ERR_FOO_ASTRING_VALIDATION_TYPE))
+  })
+})
 ```
 
 ### RorreError Class
