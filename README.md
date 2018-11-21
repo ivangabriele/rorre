@@ -119,10 +119,6 @@ This CommonJS library is written and distributed in ES6. You may use a transpile
 
 _In progress..._
 
-### With an es5 transpiler
-
-_Tests in progress..._
-
 ## Best Practices
 
 - Error names SHOULD be in **SCREAMING_SNAKE_CASE**.<br>
