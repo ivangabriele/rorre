@@ -101,11 +101,23 @@ Since there are many existing formats and conventions to handle localization, ro
 
 ## Compatibility
 
-This CommonJS library is written in ES6 and is fully transpilable to ES5 if you use a transpiler in your project.
+This CommonJS library is written and distributed in ES6. You may use a transpiler (i.e.: [Babel](https://babeljs.io/)) in order to make it ES5-compatible.
 
-### Without a transpiler
+### Node
 
-_Tests in progress..._
+| Version |          Raw         |  Transpiled  |
+| ------: | :------------------: | :-----------: |
+|      11 | :white_check_mark: | :question: |
+|      10 | :white_check_mark: | :question: |
+|       8 | :white_check_mark: | :question: |
+|       6 |        :x:         | :question: |
+|       4 |        :x:         | :question: |
+|    0.12 |        :x:         | :question: |
+|    0.10 |        :x:         | :question: |
+
+### Browser
+
+_In progress..._
 
 ### With an es5 transpiler
 
