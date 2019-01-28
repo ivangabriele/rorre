@@ -77,7 +77,7 @@ const customExports = {
   declare: (dictionary) => {
     switch (true) {
       case _DICTIONARY !== undefined:
-        throw new Error(`Rorre#declare(): You already declared an error dictionary.`)
+        return Object.seal(new Rorre())
 
       case Object.prototype.toString.call(dictionary) !== '[object Object]':
         throw new Error(`Rorre#declare(): Your <dictionary> must be a pure object: { ... }.`)
