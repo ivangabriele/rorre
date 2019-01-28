@@ -32,11 +32,10 @@ describe('Rorre', () => {
     it(`shouldn't throw any error with a valid dictionary`, () =>
       assert.doesNotThrow(() => errorDictionary = rorre.declare(DICTIONARY)))
 
-    it(`should throw the expected error when re-called`, () =>
-      assertError(
-        () => rorre.declare({ ERROR_NEVER: `Impossible error.` }),
-        `Rorre#declare(): You already declared an error dictionary.`
-      ))
+    it(`should return the same dictionary when re-called with a different one`, () => {
+      errorDictionary = rorre.declare({ ERROR_NEVER: `Impossible error.` })
+      assert.deepStrictEqual(errorDictionary.dictionary, DICTIONARY)
+    })
   })
 
   describe('#dictionary', () => {
