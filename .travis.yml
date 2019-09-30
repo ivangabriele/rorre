@@ -1,11 +1,93 @@
 language: node_js
+node_js: "12"
 
-node_js:
-  - "8"
-  - "10"
-  - "11"
+cache:
+  npm: true
 
-os:
-  - linux
-  - osx
-  - windows
+stages:
+  - Test
+  - name: Release
+    if: repo = "ivangabriele/rorre" AND tag IS present
+
+jobs:
+  include:
+    - stage: Test
+      name: Unit Tests v8
+      os: linux
+      node_js: "8"
+
+    - stage: Test
+      name: Unit Tests v10
+      os: linux
+      node_js: "10"
+
+    - stage: Test
+      name: Unit Tests v12
+      os: linux
+      node_js: "12"
+
+    - stage: Test
+      name: Unit Tests v8
+      os: osx
+      node_js: "8"
+
+    - stage: Test
+      name: Unit Tests v10
+      os: osx
+      node_js: "10"
+
+    - stage: Test
+      name: Unit Tests v12
+      os: osx
+      node_js: "12"
+
+    - stage: Test
+      name: Unit Tests v8
+      os: windows
+      node_js: "8"
+
+    - stage: Test
+      name: Unit Tests v10
+      os: windows
+      node_js: "10"
+
+    - stage: Test
+      name: Unit Tests v12
+      os: windows
+      node_js: "12"
+      # Upload coverage only for Windows + Node v12:
+      script: ./scripts/ci/run_unit_tests.sh
+
+    - stage: Release
+      name: Github Release
+      script: skip
+      before_deploy:
+        - yarn ci:generate:release_notes
+      deploy:
+        provider: releases
+        api_key: $GITHUB_TOKEN
+        edge:
+          branch: master
+        release_notes_file: ./RELEASE_NOTES.md
+        on:
+          repo: ivangabriele/rorre
+          tags: true
+
+    - stage: Release
+      name: NPM Package
+      script: skip
+      deploy:
+        provider: npm
+        access: public
+        api_token: $NPM_TOKEN
+        edge:
+          branch: master
+        email: ivan.gabriele@gmail.com
+        on:
+          repo: ivangabriele/rorre
+          tags: true
+
+notifications:
+  email:
+    on_failure: change
+    on_success: never
