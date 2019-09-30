@@ -1,6 +1,11 @@
-let _DICTIONARY
-let _ERROR
-let _NAME
+/* eslint-disable class-methods-use-this */
+/* eslint-disable default-case */
+/* eslint-disable max-classes-per-file */
+/* eslint-disable no-underscore-dangle */
+
+let _DICTIONARY;
+let _ERROR;
+let _NAME;
 
 /**
  * RorreError customizes the default Error:
@@ -10,16 +15,16 @@ let _NAME
 class RorreError extends Error {
   constructor(message, name) {
     switch (true) {
-      case typeof message !== 'string' || message.length === 0:
-        throw new Error(`RorreError(): The <message> must be a non-empty string.`)
+      case typeof message !== "string" || message.length === 0:
+        throw new Error(`RorreError(): The <message> must be a non-empty string.`);
 
-      case typeof name !== 'string' || name.length === 0:
-        throw new Error(`RorreError(): The <name> must be a non-empty string.`)
+      case typeof name !== "string" || name.length === 0:
+        throw new Error(`RorreError(): The <name> must be a non-empty string.`);
     }
 
-    super(message)
+    super(message);
 
-    this.name = name
+    this.name = name;
   }
 }
 
@@ -33,10 +38,12 @@ class Rorre {
    */
   get dictionary() {
     if (_DICTIONARY === undefined) {
-      throw new Error(`Rorre#dictionary: You need to declare your dictionary first, in order to call this getter.`)
+      throw new Error(
+        `Rorre#dictionary: You need to declare your dictionary first, in order to call this getter.`
+      );
     }
 
-    return _DICTIONARY
+    return _DICTIONARY;
   }
 
   /**
@@ -44,12 +51,13 @@ class Rorre {
    */
   get error() {
     if (_DICTIONARY === undefined) {
-      throw new Error(`Rorre#code: You need to declare your dictionary first, in order to call this getter.`)
+      throw new Error(
+        `Rorre#code: You need to declare your dictionary first, in order to call this getter.`
+      );
     }
 
-    return _ERROR
+    return _ERROR;
   }
-
 
   /**
    * Get an enum of the dictionary errors' name.
@@ -60,10 +68,12 @@ class Rorre {
    */
   get name() {
     if (_DICTIONARY === undefined) {
-      throw new Error(`Rorre#code: You need to declare your dictionary first, in order to call this getter.`)
+      throw new Error(
+        `Rorre#code: You need to declare your dictionary first, in order to call this getter.`
+      );
     }
 
-    return _NAME
+    return _NAME;
   }
 }
 
@@ -74,43 +84,49 @@ const customExports = {
    * @description
    * This method can and must only be called once.
    */
-  declare: (dictionary) => {
+  declare: dictionary => {
     switch (true) {
       case _DICTIONARY !== undefined:
-        return Object.seal(new Rorre())
+        return Object.seal(new Rorre());
 
-      case Object.prototype.toString.call(dictionary) !== '[object Object]':
-        throw new Error(`Rorre#declare(): Your <dictionary> must be a pure object: { ... }.`)
+      case Object.prototype.toString.call(dictionary) !== "[object Object]":
+        throw new Error(`Rorre#declare(): Your <dictionary> must be a pure object: { ... }.`);
 
       case Object.entries(dictionary).length === 0:
-        throw new Error(`Rorre#declare(): Your <dictionary> can't be empty.`)
+        throw new Error(`Rorre#declare(): Your <dictionary> can't be empty.`);
 
-      case Object.entries(dictionary).filter(([_, m]) => typeof m !== 'string' || m.length === 0).length !== 0:
-        throw new Error(`Rorre#declare(): Your <dictionary> values (= messages) must be non-empty strings.`)
+      case Object.entries(dictionary).filter(([, m]) => typeof m !== "string" || m.length === 0)
+        .length !== 0:
+        throw new Error(
+          `Rorre#declare(): Your <dictionary> values (= messages) must be non-empty strings.`
+        );
     }
 
     // Iitialize the "private properties"
-    _DICTIONARY = {}
-    _ERROR = {}
-    _NAME = {}
+    _DICTIONARY = {};
+    _ERROR = {};
+    _NAME = {};
 
     // Fill the "private properties"
-    for (let name in dictionary) {
-      _NAME[name] = name
-      _DICTIONARY[name] = dictionary[name]
-      Object.defineProperty(_ERROR, name, { get: () => new RorreError(dictionary[name], name) })
+    // eslint-disable-next-line guard-for-in, no-restricted-syntax
+    for (const name in dictionary) {
+      _NAME[name] = name;
+      _DICTIONARY[name] = dictionary[name];
+      Object.defineProperty(_ERROR, name, {
+        get: () => new RorreError(dictionary[name], name)
+      });
     }
 
     // Freeze the "private properties"
-    _DICTIONARY = Object.freeze(_DICTIONARY)
-    _ERROR = Object.freeze(_ERROR)
-    _NAME = Object.freeze(_NAME)
+    _DICTIONARY = Object.freeze(_DICTIONARY);
+    _ERROR = Object.freeze(_ERROR);
+    _NAME = Object.freeze(_NAME);
 
-    return Object.seal(new Rorre())
+    return Object.seal(new Rorre());
   }
-}
+};
 
 // Enable Typescript default importation
-customExports.default = customExports
+customExports.default = customExports;
 
-module.exports = Object.seal(customExports)
+module.exports = Object.seal(customExports);
