@@ -1,4 +1,10 @@
-/test/
+/.dependabot
+/coverage
+/scripts
 
 /.editorconfig
+/.eslintignore
+/.eslintrc.yml
+/.gitattributes
 /.travis.yml
+/RELEASE_NOTES.md
