@@ -1,4 +1,4 @@
-export type ReadOnly<T> = { readonly [P in keyof T]: T[P]; }
+export type ReadOnly<T> = { readonly [P in keyof T]: T[P] };
 export type Stringify<T> = Extract<T, string>;
 
 export interface Dictionary {
@@ -49,4 +49,4 @@ declare const rorre: {
   declare<D extends Dictionary>(dictionary: D): Rorre<D>;
 };
 
-export default rorre;
+export = rorre;
