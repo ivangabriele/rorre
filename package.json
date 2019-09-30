@@ -6,17 +6,26 @@
   "main": "rorre.js",
   "types": "rorre.d.ts",
   "scripts": {
-    "postpublish": "git push origin head && git push --tags",
-    "test": "mocha"
+    "ci:generate:release_notes": "node ./scripts/ci/generate_release_notes.js",
+    "test": "npm run test:lint && npm run test:unit",
+    "test:lint": "eslint ./*.js",
+    "test:unit": "jest --bail --coverage ./*.test.js",
+    "test:watch": "npm run test:unit --watch",
+    "preversion": "npm test",
+    "postversion": "git push origin HEAD && git push --tags"
   },
   "devDependencies": {
-    "mocha": "^5.2.0",
-    "typescript": "^3.2.4"
-  },
-  "author": {
-    "name": "Ivan Gabriele",
-    "email": "ivan.gabriele@gmail.com",
-    "url": "https://www.ivangabriele.com"
+    "@types/jest": "24.0.18",
+    "@types/node": "12.7.8",
+    "coveralls": "3.0.6",
+    "eslint": "6.5.0",
+    "eslint-config-airbnb-base": "14.0.0",
+    "eslint-config-prettier": "6.3.0",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-prettier": "3.1.1",
+    "jest": "24.9.0",
+    "keep-a-changelog": "0.8.1",
+    "prettier": "1.18.2"
   },
   "keywords": [
     "enum",
@@ -24,6 +33,11 @@
     "dictionary",
     "emitter"
   ],
+  "author": {
+    "name": "Ivan Gabriele",
+    "email": "ivan.gabriele@gmail.com",
+    "url": "https://www.ivangabriele.com"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ivangabriele/rorre.git"
