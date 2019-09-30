@@ -1,10 +1,9 @@
 # Rorre
 
-[![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg?style=flat-square)](http://opensource.org/licenses/MIT)
-[![npm](https://img.shields.io/npm/v/rorre.svg?style=flat-square)](https://www.npmjs.com/package/rorre)
-[![Travis](https://img.shields.io/travis/ivangabriele/rorre.svg?style=flat-square)](https://travis-ci.org/ivangabriele/rorre)
-[![David](https://img.shields.io/david/ivangabriele/rorre.svg?style=flat-square)](https://david-dm.org/ivangabriele/rorre?type=dev)
-[![David](https://img.shields.io/david/dev/ivangabriele/rorre.svg?style=flat-square)](https://david-dm.org/ivangabriele/rorre?type=dev)
+[![License][img-license]][link-license]
+[![NPM Version][img-npm]][link-npm]
+[![Build Status][img-travis]][link-travis]
+[![Code Coverage][img-coveralls]][link-coveralls]
 
 **Enumified, dictionary-based and dependenciless error library.**
 
@@ -22,7 +21,7 @@
 ## Behaviors
 
 - As a developer:
-  - I want the error library to be [frozen](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze).
+  - I want the error library to be [frozen][link-mdn-freeze].
   - I want an error dictionary.
   - I want the error dictionary to be declared only once.
   - I want the error dictionary to be frozen.
@@ -46,25 +45,27 @@ The Typescript and Flow definitions are included in this library.
 Declare your errors in a single file (called `errors.js` here):
 
 ```js
-const rorre = require('rorre')
+const rorre = require("rorre");
 
 module.exports = rorre.declare({
   ERR_ONE: `First error message.`,
-  ERR_TWO: `Second error message.`,
-})
+  ERR_TWO: `Second error message.`
+});
 ```
 
 Throw them via their name:
 
 ```js
-const errors = require('./errors')
+const errors = require("./errors");
 
-if (somethingWentWrong()) throw errors.error.ERR_ONE
+if (somethingWentWrong()) throw errors.error.ERR_ONE;
 ```
 
 And that's all !
 
-This will return an instance of `RorreError`, itself inherited from `Error`. Each error will get a `name` and a `message` matching the ones in the dictionary. In the case above, a `throw errors.error.ERR_ONE` would output:
+This will return an instance of `RorreError`, itself inherited from `Error`. Each error will get a
+`name` and a `message` matching the ones in the dictionary. In the case above, a
+`throw errors.error.ERR_ONE` would output:
 
 ```bash
 ERR_ONE: First error message.
@@ -80,33 +81,40 @@ ERR_ONE: First error message.
     at bootstrapNodeJSCore (internal/bootstrap/node.js:739:3)
 ```
 
-You obviously need to **ignore the first Error Stack line** since `new RorreError()` is called within Rorre library.
+You obviously need to **ignore the first Error Stack line** since `new RorreError()` is called
+within Rorre library.
 
 ### Typescript & Flow
 
-In Typescript and Flow, you will benefit from the autocompletion thanks to the types inference patterns included in the typings declaration. It's advisable not to try custom-typing your Error Dictionary to avoid interfering with the inference process.
+In Typescript and Flow, you will benefit from the autocompletion thanks to the types inference
+patterns included in the typings declaration. It's advisable not to try custom-typing your Error
+Dictionary to avoid interfering with the inference process.
 
 ## Localization
 
-If you wish to use this library to also handle end-users errors and integrate your translations in the process, you can take advantage of the `rorre.name` enum. Your code could look like this:
+If you wish to use this library to also handle end-users errors and integrate your translations in
+the process, you can take advantage of the `rorre.name` enum. Your code could look like this:
 
 ```js
-const errors = require('./errors')
-const locales = requires('../i18n/en.json')
+const errors = require("./errors");
+const locales = requires("../i18n/en.json");
 
-if (somethingWentWrong()) showErrorWithMessage(locales[errors.name.ERR_ONE])
+if (somethingWentWrong()) showErrorWithMessage(locales[errors.name.ERR_ONE]);
 ```
 
-Since there are many existing formats and conventions to handle localization, rorre does not implement anything specific regarding that. It's up to you to re-declare your error dictionary names within your localization files.
+Since there are many existing formats and conventions to handle localization, rorre does not
+implement anything specific regarding that. It's up to you to re-declare your error dictionary names
+within your localization files.
 
 ## Compatibility
 
-This CommonJS library is written and distributed in ES6. You may use a transpiler (i.e.: [Babel](https://babeljs.io/)) in order to make it ES5-compatible.
+This CommonJS library is written and distributed in ES6. You may use a transpiler (i.e.:
+[Babel](https://babeljs.io/)) in order to make it ES5-compatible.
 
 ### Node
 
-| Version |          Raw         |  Transpiled  |
-| ------: | :------------------: | :-----------: |
+| Version |        Raw         | Transpiled |
+| ------: | :----------------: | :--------: |
 |      11 | :white_check_mark: | :question: |
 |      10 | :white_check_mark: | :question: |
 |       8 | :white_check_mark: | :question: |
@@ -121,10 +129,14 @@ _In progress..._
 
 ## Best Practices
 
-- Error names SHOULD be in **SCREAMING_SNAKE_CASE**.<br>
-  _**Why ?** Because an error name is supposed to be easy to find, irrespective of the size of the codebase. In Javascript, most variable names are in camel-case. Therefore it's easier to run a case-sensitive search to look for the error name. Moreover it also catches the eye when lost in the middle of a log history._
-- Error messages SHOULD start with an **Uppercase** letter AND SHOULD end with a **dot**.<br>
-  _**Why ?** Because an error message is supposed to be a humanely understandable message. We are used to read sentences starting with an uppercase letter and ending with a punctuation mark. Therefore it improves the readability._
+- Error names SHOULD be in **SCREAMING_SNAKE_CASE**.<br> _**Why ?** Because an error name is
+  supposed to be easy to find, irrespective of the size of the codebase. In Javascript, most
+  variable names are in camel-case. Therefore it's easier to run a case-sensitive search to look for
+  the error name. Moreover it also catches the eye when lost in the middle of a log history._
+- Error messages SHOULD start with an **Uppercase** letter AND SHOULD end with a **dot**.<br> _**Why
+  ?** Because an error message is supposed to be a humanely understandable message. We are used to
+  read sentences starting with an uppercase letter and ending with a punctuation mark. Therefore it
+  improves the readability._
 
 ## API
 
@@ -134,11 +146,13 @@ _In progress..._
 
 Return an frozen instance of Rorre.
 
-The `<dictionary>` parameter must be a pure `object` made of Error names as its properties, and matching Error messages as its values. Both its properties and values are expected to be a `string`.
+The `<dictionary>` parameter must be a pure `object` made of Error names as its properties, and
+matching Error messages as its values. Both its properties and values are expected to be a `string`.
 
 #### `Rorre#dictionary: Dictionary`
 
-Getter for the Error Dictionary your declared with `Rorre#declare()`. All of its properties are `read-only`.
+Getter for the Error Dictionary your declared with `Rorre#declare()`. All of its properties are
+`read-only`.
 
 #### `Rorre#error: { [keyof Dictionary]: () => RorreError }`
 
@@ -146,7 +160,9 @@ Getter for the Error Dictionary your declared with `Rorre#declare()` returning .
 
 #### `Rorre#name: { [keyof Dictionary]: keyof Dictionary }`
 
-Getter for the Error Dictionary names _(= its property names)_ in a simple enum form. It allows you to check the errors by their name in case you wish to compare them. All of its properties are `read-only`. This can be useful for testing purposes.
+Getter for the Error Dictionary names _(= its property names)_ in a simple enum form. It allows you
+to check the errors by their name in case you wish to compare them. All of its properties are
+`read-only`. This can be useful for testing purposes.
 
 Example:
 
@@ -177,7 +193,8 @@ describe('foo()', () => {
 
 **Note: The RorreError class is not exported and only described here for documentation sake.**
 
-This class is an extension of `Error` with a mandatory `name` property. Both its `message` and `name` properties are expected to be a `string`.
+This class is an extension of `Error` with a mandatory `name` property. Both its `message` and
+`name` properties are expected to be a `string`.
 
 ## Contribute
 
@@ -186,3 +203,22 @@ git clone https://github.com/ivangabriele/rorre.git
 cd rorre
 npm install
 ```
+
+### Test
+
+- All Tests: `npm test`
+- Lint Tests: `npm run test:lint`
+- Unit Tests: `npm run test:unit`
+- Unit Tests (watch): `npm run test:watch`
+
+---
+
+[img-coveralls]: https://img.shields.io/coveralls/github/ivangabriele/rorre/master?style=flat-square
+[img-license]: https://img.shields.io/badge/License-MIT-blue?style=flat-square
+[img-npm]: https://img.shields.io/npm/v/rorre?style=flat-square
+[img-travis]: https://img.shields.io/travis/com/ivangabriele/rorre/master?style=flat-square
+[link-coveralls]: https://coveralls.io/github/ivangabriele/rorre
+[link-license]: https://github.com/ivangabriele/rorre/blob/master/LICENSE
+[link-mdn-freeze]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
+[link-npm]: https://www.npmjs.com/package/rorre
+[link-travis]: https://travis-ci.com/ivangabriele/rorre
