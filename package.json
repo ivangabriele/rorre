@@ -24,7 +24,7 @@
     "eslint-plugin-import": "2.20.0",
     "eslint-plugin-prettier": "3.1.2",
     "jest": "24.9.0",
-    "keep-a-changelog": "0.8.1",
+    "keep-a-changelog": "0.9.1",
     "prettier": "1.19.1"
   },
   "keywords": [
