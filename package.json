@@ -15,7 +15,7 @@
     "postversion": "git push origin HEAD && git push --tags"
   },
   "devDependencies": {
-    "@types/jest": "24.0.25",
+    "@types/jest": "24.9.0",
     "@types/node": "12.12.9",
     "coveralls": "3.0.9",
     "eslint": "6.8.0",
